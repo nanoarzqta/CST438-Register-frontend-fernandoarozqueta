@@ -3,23 +3,26 @@ import AppBar from '@mui/material/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Admin from './components/Admin';
 import SchedList from './components/SchedList';
 import Semester from './components/Semester';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-function App() {
-  return (
-    <div className="App">
-      <AppBar position="static" color="default">
+/*<AppBar position="static" color="default">
         <Toolbar>
            <Typography variant="h6" color="inherit">
             Course Registration
            </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar>*/
+
+function App() {
+  return (
+    <div className="App">
+      
       <BrowserRouter>
        <Switch>
-        <Route exact path='/' component={Semester} />
+        <Route path='/' component={Admin} />
+        <Route path='/semester' component={Semester} />
         <Route path='/schedule' component={SchedList} />
        </Switch>
       </BrowserRouter>
