@@ -10,7 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class Admin extends Component {
-    constructor(props) {
+    constructor(props) 
+    {
       super(props);
       this.state = { };
       console.log("admin page class");
