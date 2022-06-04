@@ -27,7 +27,7 @@ function App() {
       </AppBar>
       <BrowserRouter>
        <Switch>
-        <Route path='/' component={Admin} />
+        <Route path='/' component={Login} />
         <Route path='/semester' component={Semester} />
         <Route path='/schedule' component={SchedList} />
        </Switch>

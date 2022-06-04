@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';                                   
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import {SERVER_URL} from '../constants.js'
+import Button from '@material-ui/core/Button';
 import Grid from '@mui/material/Grid';
 import {DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
@@ -38,6 +40,7 @@ class SchedList extends Component {
       {  
         method: 'GET', 
         headers: { 'X-XSRF-TOKEN': token }
+        credentials: 'include'                      
       } )
     .then((response) => {
       console.log("FETCH RESP:"+response);
@@ -71,6 +74,7 @@ class SchedList extends Component {
         {
           method: 'DELETE',
           headers: { 'X-XSRF-TOKEN': token }
+          credentials: 'include'                      
         })
     .then(res => {
         if (res.ok) {
@@ -102,6 +106,7 @@ class SchedList extends Component {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json',
                    'X-XSRF-TOKEN': token  }, 
+                   credentials: 'include'                        
         body: JSON.stringify(course)
       })
     .then(res => {
@@ -161,10 +166,6 @@ class SchedList extends Component {
             </Toolbar>
           </AppBar>
           <div className="App">
-            <div style={{width:'100%'}}>
-                For DEBUG:  display state.
-                {JSON.stringify(this.state)}
-            </div>
             <Grid container>
               <Grid item>
                   <AddCourse addCourse={this.addCourse}  />
@@ -180,4 +181,14 @@ class SchedList extends Component {
   }
 }
 
+// required properties:  year integer , semester string
+//  NOTE: because SchedList is invoked via <Route> in App.js  
+//  props are accessed via props.location 
+SchedList.propTypes = {
+  location: (properties, propertyName, componentName) => {
+       if ( (!Number.isInteger(properties.location.year)) || !(typeof properties.location.semester === 'string') || (properties.location.semester instanceof String )) {
+         return new Error('AddCourse: Missing or invalid property year or semester.');
+       }
+    }
+  }                                                       
 export default SchedList;
